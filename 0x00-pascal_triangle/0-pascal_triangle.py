@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 
 """
-This module defines a function `pascal_triangle(n)` that returns a list of lists 
+This module defines a function `pascal_triangle(n)` 
+that returns a list of lists
 representing Pascal's triangle up to `n` rows.
 The function handles edge cases where `n` is less than or equal to 0.
 """
 
 def pascal_triangle(n):
+
+
     """
     Generate Pascal's triangle with `n` rows.
 
@@ -14,7 +17,8 @@ def pascal_triangle(n):
         n (int): The number of rows in the Pascal's triangle.
 
     Returns:
-        list: A list of lists where each inner list represents a row in Pascal's triangle.
+        list: A list of lists where each inner list 
+        represents a row in Pascal's triangle.
 
     If `n <= 0`, an empty list is returned.
     """
