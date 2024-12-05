@@ -12,10 +12,10 @@ def pascal_triangle(n):
 Generate Pascal's triangle with `n` rows.
 
 Args:
-n (int): The number of rows in the Pascal's triangle.
+    n (int): The number of rows in the Pascal's triangle.
 
 Returns:
-list: A list of lists where each inner list represents a row in 
+    list: A list of lists where each inner list represents a row in 
 Pascal's triangle.
 
 If `n <= 0`, an empty list is returned.
@@ -39,4 +39,4 @@ If `n <= 0`, an empty list is returned.
 if __name__ == "__main__":
     result = pascal_triangle(5)  # Replace 5 with whatever n you want
     for row in result:
-        print(row)
+print(row)
