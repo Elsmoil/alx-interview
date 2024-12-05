@@ -8,8 +8,6 @@ The function handles edge cases where `n` is less than or equal to 0.
 
 
 def pascal_triangle(n):
-
-
 """
 Generate Pascal's triangle with `n` rows.
 
