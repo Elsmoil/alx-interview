@@ -18,3 +18,8 @@ def pascal_triangle(n):
         triangle.append(row)  # Add the row to the triangle
     
     return triangle
+if __name__ == "__main__":
+    result = pascal_triangle(5)  # Replace 5 with whatever n you want
+    for row in result:
+        print(row)
+
