@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 import sys
+    """
+    Print statistics in the required format.
+    :param file_size: Total file size computed so far.
+    :param status_codes: Dictionary of status codes and their counts.
+    """
 
 
 def print_stats(file_size, status_codes):
-
-
     """
     Print statistics in the required format.
     :param file_size: Total file size computed so far.
@@ -15,26 +18,35 @@ def print_stats(file_size, status_codes):
         if status_codes[code] > 0:
             print(f"{code}: {status_codes[code]}")
 
+
 def main():
     # Initialize variables
     file_size = 0
-    status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+    status_codes = {
+        200: 0,
+        301: 0,
+        400: 0,
+        401: 0,
+        403: 0,
+        404: 0,
+        405: 0,
+        500: 0}
     line_count = 0
 
     # Process input from stdin line by line
     try:
         for line in sys.stdin:
-            # Parse the line
+            # Check if line matches the expected format
             parts = line.split()
             if len(parts) < 7:
-                continue  # Skip invalid lines
+                continue  # Skip lines that don't have enough parts
 
+            # Extract status code and file size from the line
             try:
-                # Extract status code and file size
-                status_code = int(parts[5])
-                size = int(parts[6])
+                status_code = int(parts[5])  # Status code is at index 5
+                size = int(parts[6])  # File size is at index 6
             except ValueError:
-                continue  # If the status code or size is not valid, skip this line
+                continue  # Skip lines where the status code or size is invalid
 
             # Validate the status code
             if status_code not in status_codes:
@@ -50,12 +62,19 @@ def main():
                 print_stats(file_size, status_codes)
 
         # After finishing reading all lines, print final stats
-        print_stats(file_size, status_codes)
+        if line_count > 0:
+            print_stats(file_size, status_codes)
+        else:
+            print("File size: 0")  # Handle empty file case
 
     except KeyboardInterrupt:
-        # Print stats if the program is interrupted by the user
-        print_stats(file_size, status_codes)
+        # Handle keyboard interrupt (CTRL + C) and print stats
+        if line_count > 0:
+            print_stats(file_size, status_codes)
+        else:
+            print("File size: 0")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
