@@ -1,13 +1,5 @@
 #!/usr/bin/python3
 
-"""
-    This module contains the function `canUnlockAll`
-    that determines if all boxes can be unlocked.
-    Each box contains keys to other boxes,
-    and the first box is unlocked initially.
-    """
-
-
 def canUnlockAll(boxes):
     """
     Determines if all the boxes can be unlocked.
@@ -23,14 +15,11 @@ def canUnlockAll(boxes):
 
     # A list to track which boxes have been unlocked
     unlocked = [False] * n
-
-    # The first box is always unlocked
-    unlocked[0] = True
+    unlocked[0] = True  # The first box is always unlocked
 
     # A list to store keys we have found and can use to open other boxes
-    keys_to_check = [0]
+    keys_to_check = [0]  # Start with box 0
 
-    # Start exploring the boxes
     while keys_to_check:
         current_box = keys_to_check.pop()
 
@@ -41,16 +30,17 @@ def canUnlockAll(boxes):
                 # Add the box to the list of keys to check
                 keys_to_check.append(key)
 
-    # If all boxes are unlocked, return True; otherwise, False
+    # Return True if all boxes are unlocked, otherwise False
     return all(unlocked)
 
 
 # Test cases
-boxes = [[1], [2], [3], [4], []]
-print(canUnlockAll(boxes))  # Expected output: True
+if __name__ == "__main__":
+    boxes = [[1], [2], [3], [4], []]
+    print(canUnlockAll(boxes))  # Expected output: True
 
-boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-print(canUnlockAll(boxes))  # Expected output: True
+    boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
+    print(canUnlockAll(boxes))  # Expected output: True
 
-boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-print(canUnlockAll(boxes))  # Expected output: False
+    boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+    print(canUnlockAll(boxes))  # Expected output: False
