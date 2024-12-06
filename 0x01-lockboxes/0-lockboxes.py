@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-This module contains the function `canUnlockAll` that determines if all boxes can be unlocked.
+This module contains the function `canUnlockAll`
+that determines if all boxes can be unlocked.
 Each box contains keys to other boxes, and the first box is unlocked initially.
 """
 
