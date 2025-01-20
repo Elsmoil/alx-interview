@@ -80,11 +80,11 @@ def isWinner(x, nums):
     Raises:
     ValueError: If `x` is not a positive integer or if any value in `nums` is non-positive.
     """
-    # Input validation
+    # Input validation for `x` and `nums`
     if not isinstance(x, int) or x <= 0:
-        raise ValueError("x must be a positive integer.")
+        return None  # x must be positive, so return None if invalid
     if not all(isinstance(num, int) and num > 0 for num in nums):
-        raise ValueError("All numbers in nums must be integers greater than 0.")
+        return None  # Skip invalid entries (e.g., zero or negative numbers)
 
     maria_wins = 0
     ben_wins = 0
@@ -93,7 +93,7 @@ def isWinner(x, nums):
         winner = play_game(n)
         if winner == 'Maria':
             maria_wins += 1
-        else:
+        elif winner == 'Ben':
             ben_wins += 1
     
     if maria_wins > ben_wins:
