@@ -1,22 +1,29 @@
 #!/usr/bin/python3
 
 """
-This module implements the Prime Game, where two players (Maria and Ben) take turns 
-choosing prime numbers from a set of integers. Each time a prime number is chosen, 
-its multiples are removed from the set. The game ends when no more prime numbers can 
+This module implements the Prime Game, 
+where two players (Maria and Ben) take turns 
+choosing prime numbers from a set of integers.
+Each time a prime number is chosen, 
+its multiples are removed from the set. The game ends 
+when no more prime numbers can 
 be chosen, and the player who cannot make a move loses.
 
 The module includes:
-- A helper function `sieve_of_eratosthenes` to generate prime numbers up to a given limit.
+- A helper function `sieve_of_eratosthenes` to 
+generate prime numbers up to a given limit.
 - A `play_game` function to simulate a game round given a number `n`.
-- The `isWinner` function to determine the winner of multiple rounds based on optimal play.
+- The `isWinner` function to determine the winner of
+multiple rounds based on optimal play.
 
-This module doesn't use any imported libraries and implements the solution efficiently.
+This module doesn't use any imported libraries and implements 
+the solution efficiently.
 """
 
 def sieve_of_eratosthenes(limit):
     """
-    Generates all prime numbers up to the given limit using the Sieve of Eratosthenes.
+    Generates all prime numbers up to the given limit using 
+    the Sieve of Eratosthenes.
 
     Args:
     limit (int): The upper bound up to which to find primes.
@@ -62,8 +69,10 @@ def isWinner(x, nums):
     """
     Determines the player who wins the most rounds.
 
-    The function takes an integer `x`, which is the number of rounds, and a list `nums` 
-    which contains the value `n` for each round. The function simulates each round of the 
+    The function takes an integer `x`,
+    which is the number of rounds, and a list `nums`
+    which contains the value `n` for each round.
+    The function simulates each round of the
     Prime Game and determines who won the most rounds. It returns:
     - 'Maria' if Maria wins the most rounds.
     - 'Ben' if Ben wins the most rounds.
@@ -74,28 +83,30 @@ def isWinner(x, nums):
     nums (list of int): A list of n values for each round.
 
     Returns:
-    str: 'Maria' if Maria wins the most rounds, 'Ben' if Ben wins the most rounds, or 
-         None if there is a tie.
-    
+    str: 'Maria' if Maria wins the most rounds, 
+    'Ben' if Ben wins the most rounds, or None if there is a tie.
+
     Raises:
-    ValueError: If `x` is not a positive integer or if any value in `nums` is non-positive.
+    ValueError: If `x` is not a positive integer or if any value in 
+    `nums` is non-positive.
     """
     # Input validation for `x` and `nums`
     if not isinstance(x, int) or x <= 0:
         return None  # x must be positive, so return None if invalid
-    if not all(isinstance(num, int) and num > 0 for num in nums):
-        return None  # Skip invalid entries (e.g., zero or negative numbers)
 
     maria_wins = 0
     ben_wins = 0
-    
+
     for n in nums:
+        if n <= 0:
+            continue #Skip invalid rounds
+
         winner = play_game(n)
         if winner == 'Maria':
             maria_wins += 1
         elif winner == 'Ben':
             ben_wins += 1
-    
+
     if maria_wins > ben_wins:
         return 'Maria'
     elif ben_wins > maria_wins:
