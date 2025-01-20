@@ -1,9 +1,17 @@
 #!/usr/bin/python3
-    """
-This module contains functions to simulate a game between two players, Maria and Ben.
-The game involves picking primes from a set of integers and removing them and their multiples.
-The player who cannot make a valid move loses the game.
-    """
+
+"""
+This module contains a solution for the Prime Game.
+
+In this game, two players, Maria and Ben, take turns picking prime numbers
+from a set of integers ranging from 1 to n. The chosen prime number and its
+multiples are removed from the set. The player who cannot make a valid move
+loses the game. Maria always starts first and both players play optimally.
+
+Functions:
+- sieve_of_eratosthenes(n): Returns a list of prime numbers from 2 to n.
+- isWinner(x, nums): Determines the winner of multiple rounds of the Prime Game.
+"""
 
 
 def sieve_of_eratosthenes(n):
