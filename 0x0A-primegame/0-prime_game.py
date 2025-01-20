@@ -1,7 +1,26 @@
 #!/usr/bin/python3
+"""
+This module contains functions to simulate a game between two players, Maria and Ben. 
+The game involves picking primes from a set of integers and removing them and their multiples.
+The player who cannot make a valid move loses the game.
+"""
 
 def sieve_of_eratosthenes(n):
-    """Returns a list of primes up to n using the Sieve of Eratosthenes."""
+     """
+    This function uses the Sieve of Eratosthenes algorithm to find all
+    prime numbers
+    up to a given number `n`.
+
+    Args:
+        n (int): The upper limit (inclusive) to find primes.
+
+    Returns:
+        list: A list of prime numbers from 2 to `n`.
+
+    Example:
+        >>> sieve_of_eratosthenes(10)
+        [2, 3, 5, 7]
+    """
     is_prime = [True] * (n + 1)
     is_prime[0] = is_prime[1] = False  # 0 and 1 are not primes
     for i in range(2, int(n ** 0.5) + 1):
