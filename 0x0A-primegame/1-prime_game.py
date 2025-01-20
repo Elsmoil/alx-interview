@@ -3,15 +3,16 @@
 """
 This module contains a solution for the Prime Game.
 
-In this game, two players, Maria and Ben, take turns picking prime numbers 
-from a set of integers ranging from 1 to n. The chosen prime number and its 
-multiples are removed from the set. The player who cannot make a valid move 
+In this game, two players, Maria and Ben, take turns picking prime numbers
+from a set of integers ranging from 1 to n. The chosen prime number and its
+multiples are removed from the set. The player who cannot make a valid move
 loses the game. Maria always starts first and both players play optimally.
 
 Functions:
 - sieve_of_eratosthenes(n): Returns a list of prime numbers from 2 to n.
 - isWinner(x, nums): Determines the winner of multiple rounds of the Prime Game.
 """
+
 
 def sieve_of_eratosthenes(n):
     """
@@ -22,7 +23,7 @@ def sieve_of_eratosthenes(n):
 
     Returns:
         list: A list of prime numbers from 2 to n.
-    
+
     Example:
         >>> sieve_of_eratosthenes(10)
         [2, 3, 5, 7]
@@ -42,38 +43,39 @@ def sieve_of_eratosthenes(n):
 def isWinner(x, nums):
     """
     Determines the winner of multiple rounds of a prime-based game between two players, Maria and Ben.
-    
-    In each round, players take turns picking prime numbers from a set {1, 2, ..., n}, 
+
+    In each round, players take turns picking prime numbers from a set {1, 2, ..., n},
     and remove the chosen prime and its multiples. The player who cannot make a valid move loses.
-    
+
     Maria always starts first and both players play optimally.
-    
+
     Args:
         x (int): The number of rounds to simulate.
         nums (list): A list of integers n representing the upper limit for each round.
-    
+
     Returns:
-        str or None: The name of the player who won the most rounds ("Maria" or "Ben"). 
+        str or None: The name of the player who won the most rounds ("Maria" or "Ben").
                      If the result is a tie, return None.
-    
+
     Example:
         >>> isWinner(3, [4, 5, 1])
         "Ben"
     """
-    # Validate x
     if not isinstance(x, int) or x <= 0:
         raise ValueError("x must be a positive integer.")
-    
-    # Validate nums
-    if not all(isinstance(n, int) and n > 1 for n in nums):  # Ensure n > 1 for all values
-        raise ValueError("All numbers in nums must be integers greater than 1.")
-    
+
+    if not all(isinstance(n, int) and n >
+               0 for n in nums):  # Allow 1 in the validation
+        raise ValueError(
+            "All numbers in nums must be integers greater than 0.")
+
     maria_wins = 0
     ben_wins = 0
 
     for n in nums:
         if n == 1:
-            ben_wins += 1  # If n is 1, Ben automatically wins (no primes to pick)
+            # If n is 1, Ben automatically wins (no primes to pick)
+            ben_wins += 1
             continue
 
         primes = sieve_of_eratosthenes(n)
