@@ -1,37 +1,24 @@
 #!/usr/bin/python3
 
 """
-This module contains a solution for the Prime Game.
+Prime Game between Maria and Ben.
 
-In this game, two players, Maria and Ben, take turns picking prime numbers 
-from a set of integers ranging from 1 to n. The chosen prime number and its 
-multiples are removed from the set. The player who cannot make a valid move 
-loses the game. Maria always starts first and both players play optimally.
+In each round, players take turns choosing prime numbers from a set of consecutive integers 
+starting from 1 up to and including n. The chosen prime number and all its multiples are 
+removed from the set. The player who cannot make a move loses the game. Maria always plays first, 
+and both players play optimally.
 
 Functions:
-- sieve_of_eratosthenes(n): Returns a list of prime numbers from 2 to n.
-- isWinner(x, nums): Determines the winner of multiple rounds of the Prime Game.
+- sieve_of_eratosthenes(n): Returns a list of prime numbers up to n.
+- isWinner(x, nums): Simulates the Prime Game and determines the winner for multiple rounds.
 """
 
 def sieve_of_eratosthenes(n):
     """
     Returns a list of prime numbers up to n using the Sieve of Eratosthenes algorithm.
-
-    Args:
-        n (int): The upper limit (inclusive) to find primes.
-
-    Returns:
-        list: A list of prime numbers from 2 to n.
-    
-    Example:
-        >>> sieve_of_eratosthenes(10)
-        [2, 3, 5, 7]
     """
-    if not isinstance(n, int) or n <= 1:
-        raise ValueError("Input must be an integer greater than 1")
-
     is_prime = [True] * (n + 1)
-    is_prime[0] = is_prime[1] = False  # 0 and 1 are not primes
+    is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime
     for i in range(2, int(n ** 0.5) + 1):
         if is_prime[i]:
             for j in range(i * i, n + 1, i):
@@ -41,31 +28,21 @@ def sieve_of_eratosthenes(n):
 
 def isWinner(x, nums):
     """
-    Determines the winner of multiple rounds of a prime-based game between two players, Maria and Ben.
-    
-    In each round, players take turns picking prime numbers from a set {1, 2, ..., n}, 
-    and remove the chosen prime and its multiples. The player who cannot make a valid move loses.
-    
-    Maria always starts first and both players play optimally.
-    
+    Simulates the Prime Game for x rounds and determines who won the most rounds.
+    Maria starts first and both players play optimally.
+
     Args:
-        x (int): The number of rounds to simulate.
-        nums (list): A list of integers n representing the upper limit for each round.
-    
+        x (int): The number of rounds.
+        nums (list): A list of integers representing n for each round.
+
     Returns:
-        str or None: The name of the player who won the most rounds ("Maria" or "Ben"). 
+        str or None: The player who won the most rounds ("Maria" or "Ben").
                      If the result is a tie, return None.
-    
-    Example:
-        >>> isWinner(3, [4, 5, 1])
-        "Ben"
     """
-    # Validate x
     if not isinstance(x, int) or x <= 0:
         raise ValueError("x must be a positive integer.")
     
-    # Validate nums
-    if not all(isinstance(n, int) and n > 1 for n in nums):  # Ensure n > 1 for all values
+    if not all(isinstance(n, int) and n > 1 for n in nums):
         raise ValueError("All numbers in nums must be integers greater than 1.")
     
     maria_wins = 0
@@ -73,27 +50,32 @@ def isWinner(x, nums):
 
     for n in nums:
         if n == 1:
-            ben_wins += 1  # If n is 1, Ben automatically wins (no primes to pick)
+            ben_wins += 1  # Ben wins automatically if n is 1 (no primes available)
             continue
-
+        
         primes = sieve_of_eratosthenes(n)
-        current_set = set(range(1, n + 1))
+        current_set = set(range(1, n + 1))  # Set of numbers from 1 to n
         turn = 0  # Maria starts first (0: Maria, 1: Ben)
 
         while primes:
-            current_prime = primes.pop(0)
+            current_prime = primes.pop(0)  # Take the smallest prime
+            # Remove the current prime and all its multiples from the current set
             current_set -= set(range(current_prime, n + 1, current_prime))
-            primes = [p for p in primes if p <= n and p in current_set]
+            # Filter primes to ensure they are still in the current set
+            primes = [p for p in primes if p in current_set]
+            # Switch turns
             turn = 1 - turn
 
         if turn == 0:
-            maria_wins += 1
+            maria_wins += 1  # Maria wins if it's her turn at the end
         else:
-            ben_wins += 1
+            ben_wins += 1  # Ben wins if it's his turn at the end
 
+    # Determine who won the most rounds
     if maria_wins > ben_wins:
         return "Maria"
     elif ben_wins > maria_wins:
         return "Ben"
     else:
-        return None
+        return None  # If there is a tie
+
