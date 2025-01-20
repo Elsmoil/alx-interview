@@ -1,9 +1,11 @@
 #!/usr/bin/python3
+
 """
-This module contains functions to simulate a game between two players, Maria and Ben. 
+This module contains functions to simulate a game between two players, Maria and Ben.
 The game involves picking primes from a set of integers and removing them and their multiples.
 The player who cannot make a valid move loses the game.
 """
+
 
 def sieve_of_eratosthenes(n):
      """
